@@ -73,7 +73,7 @@ with left_chart:
         y="Name",
         orientation="h",
         color="Tanimoto Similarity",
-        color_continuous_scale=["#D2D2D7", "#0071E3"],
+        color_continuous_scale=["#EFE9DF", "#2A72DE"],
         title=f"Top Ranked Analogs ({fp_type})",
     )
     fig.update_layout(yaxis={"categoryorder": "total ascending"})

@@ -70,9 +70,9 @@ with col_scheme:
         index=0,
     )
 with col_bg:
-    bg_choice = st.selectbox("3D Canvas Background", ["Pure White (#FFFFFF)", "Apple Light (#F5F5F7)", "Dark Slate (#1D1D1F)"])
+    bg_choice = st.selectbox("3D Canvas Background", ["Warm Cream (#F7F1E8)", "Pure White (#FFFFFF)", "Oura Night (#1C1A17)"])
 
-bg_hex = "#FFFFFF" if "White" in bg_choice else ("#F5F5F7" if "Light" in bg_choice else "#1D1D1F")
+bg_hex = "#F7F1E8" if "Cream" in bg_choice else ("#FFFFFF" if "White" in bg_choice else "#1C1A17")
 
 img_bytes = None
 molblock = None

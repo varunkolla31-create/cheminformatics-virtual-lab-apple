@@ -86,8 +86,8 @@ with col_radar:
         round(props["TPSA"] / 140.0, 2),
     ]
     fig = go.Figure()
-    fig.add_trace(go.Scatterpolar(r=[1, 1, 1, 1, 1], theta=categories, fill="toself", name="Ro5 Limit (1.0)", line_color="#D2D2D7"))
-    fig.add_trace(go.Scatterpolar(r=values, theta=categories, fill="toself", name=props["Name"], line_color="#0071E3"))
+    fig.add_trace(go.Scatterpolar(r=[1, 1, 1, 1, 1], theta=categories, fill="toself", name="Ro5 Limit (1.0)", line_color="#C8C0B4"))
+    fig.add_trace(go.Scatterpolar(r=values, theta=categories, fill="toself", name=props["Name"], line_color="#2A72DE"))
     fig.update_layout(
         polar=dict(radialaxis=dict(visible=True, range=[0, max(1.5, max(values) + 0.2)])),
         margin=dict(l=30, r=30, t=30, b=30),

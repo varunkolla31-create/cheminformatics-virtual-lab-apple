@@ -119,11 +119,11 @@ with c_scatter:
         color="Lipinski Check",
         hover_name="Name",
         hover_data=["Formula", "SMILES", "H-bond Donors", "H-bond Acceptors"],
-        color_discrete_map={"Pass": "#0071E3", "Fail": "#E03131"},
+        color_discrete_map={"Pass": "#2A72DE", "Fail": "#C0392B"},
         title="Chemical Space: MW vs. LogP (Bubble Size = TPSA)",
     )
-    fig_sc.add_hline(y=5.0, line_dash="dash", line_color="#E03131", annotation_text="Max LogP (5.0)")
-    fig_sc.add_vline(x=500.0, line_dash="dash", line_color="#E03131", annotation_text="Max MW (500 Da)")
+    fig_sc.add_hline(y=5.0, line_dash="dash", line_color="#C0392B", annotation_text="Max LogP (5.0)")
+    fig_sc.add_vline(x=500.0, line_dash="dash", line_color="#C0392B", annotation_text="Max MW (500 Da)")
     apply_apple_plotly_style(fig_sc, height=400)
     st.plotly_chart(fig_sc, use_container_width=True)
 
@@ -137,7 +137,7 @@ with c_bar:
         x="Name",
         y=metric_choice,
         color="Lipinski Check",
-        color_discrete_map={"Pass": "#0071E3", "Fail": "#E03131"},
+        color_discrete_map={"Pass": "#2A72DE", "Fail": "#C0392B"},
         title=f"{metric_choice} Across Filtered Dataset",
     )
     apply_apple_plotly_style(fig_bar, height=400)

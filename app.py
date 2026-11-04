@@ -34,7 +34,7 @@ st.markdown(
         <div class="apple-eyebrow">
             SRM Institute of Science and Technology, Tiruchirappalli
         </div>
-        <div style="font-size: 0.86rem; font-weight: 500; color: #6E6E73; margin-bottom: 0.9rem;">
+        <div style="font-size: 0.86rem; font-weight: 500; color: #7A756C; margin-bottom: 0.9rem;">
             Faculty of Engineering and Technology &nbsp;•&nbsp; School of Sciences &nbsp;•&nbsp; Division of Chemistry
         </div>
         <div class="apple-hero-title">Cheminformatics Virtual Laboratory</div>
@@ -150,7 +150,7 @@ for col, item in zip(mol_cols, featured_items):
             st.image(img, use_container_width=True)
         st.markdown(
             f"<div style='text-align:center; font-size:0.84rem;'><strong>{item['Name']}</strong><br/>"
-            f"<code style='font-size:0.72rem; color:#6E6E73;'>{item['SMILES']}</code></div>",
+            f"<code style='font-size:0.72rem; color:#7A756C;'>{item['SMILES']}</code></div>",
             unsafe_allow_html=True,
         )
 
@@ -183,7 +183,7 @@ with fac_col:
                 SRM Institute of Science and Technology, Tiruchirappalli
             </p>
             <p style="font-size:0.85rem;">
-                Contact: <a href="mailto:pachamuthup@srmist.edu.in" style="color:#0071E3; text-decoration:none;">pachamuthup@srmist.edu.in</a>
+                Contact: <a href="mailto:pachamuthup@srmist.edu.in" style="color:#2A72DE; text-decoration:none;">pachamuthup@srmist.edu.in</a>
             </p>
         </div>
         """,
@@ -201,7 +201,7 @@ with stu_col:
                 B.Tech in Artificial Intelligence and Machine Learning<br/>
                 SRM Institute of Science and Technology
             </p>
-            <p style="font-size:0.85rem; color:#6E6E73;">
+            <p style="font-size:0.85rem; color:#7A756C;">
                 Built with Python 3.11, Streamlit, RDKit, py3Dmol &amp; Plotly
             </p>
         </div>

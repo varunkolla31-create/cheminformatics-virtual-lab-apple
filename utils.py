@@ -223,36 +223,44 @@ def init_session_state() -> None:
 
 
 def inject_apple_css() -> None:
-    """Inject premium SaaS / macOS UI CSS with Chrome hiding, macOS focus rings, glassmorphic sidebar, and OLED Dark Mode."""
+    """Inject the Oura Design System:
+    - Warm Sandstone Cream canvas (#F7F1E8), Sandstone Ink (#4A4741), Muted Stone (#A8A5A0), Oura Blue (#2A72DE)
+    - Editorial New / Cormorant Garamond / Georgia serif headlines + AkkuratLL / Inter grotesque body
+    - 8px base card radius, 9999px full-pill buttons, soft ambient shadows
+    """
     init_session_state()
     is_dark = bool(st.session_state.get("dark_mode", False))
 
     if is_dark:
-        bg_color = "#000000"
-        surface_color = "#1C1C1E"
-        sidebar_bg = "rgba(28, 28, 30, 0.85)"
-        nav_bg = "rgba(28, 28, 30, 0.78)"
-        text_primary = "#F5F5F7"
-        text_secondary = "#98989D"
-        accent = "#0A84FF"
-        border_col = "rgba(255, 255, 255, 0.12)"
-        input_bg = "#2C2C2E"
-        pill_track = "rgba(255, 255, 255, 0.08)"
-        pill_active_bg = "#3A3A3C"
-        card_shadow = "0 8px 28px rgba(0, 0, 0, 0.45)"
+        bg_color = "#121110"
+        surface_color = "#1C1A17"
+        sidebar_bg = "rgba(28, 26, 23, 0.92)"
+        nav_bg = "rgba(28, 26, 23, 0.85)"
+        text_display = "#F7F1E8"
+        text_primary = "#E6E0D6"
+        text_secondary = "#A8A5A0"
+        accent = "#2A72DE"
+        accent_hover = "#4989E8"
+        border_col = "rgba(247, 241, 232, 0.12)"
+        input_bg = "#26231F"
+        pill_track = "rgba(247, 241, 232, 0.08)"
+        pill_active_bg = "#332F2A"
+        card_shadow = "rgba(0, 0, 0, 0.35) 0px 0px 18px 0px"
     else:
-        bg_color = "#FBFBFD"
-        surface_color = "#FFFFFF"
-        sidebar_bg = "rgba(245, 245, 247, 0.88)"
-        nav_bg = "rgba(251, 251, 253, 0.85)"
-        text_primary = "#1D1D1F"
-        text_secondary = "#6E6E73"
-        accent = "#0071E3"
-        border_col = "rgba(0, 0, 0, 0.08)"
-        input_bg = "#F5F5F7"
-        pill_track = "rgba(0, 0, 0, 0.04)"
-        pill_active_bg = "#FFFFFF"
-        card_shadow = "0 4px 20px rgba(0, 0, 0, 0.03)"
+        bg_color = "#F7F1E8"
+        surface_color = "#FDFBF7"
+        sidebar_bg = "rgba(239, 233, 223, 0.90)"
+        nav_bg = "rgba(247, 241, 232, 0.88)"
+        text_display = "#000000"
+        text_primary = "#4A4741"
+        text_secondary = "#7A756C"
+        accent = "#2A72DE"
+        accent_hover = "#2056A6"
+        border_col = "rgba(74, 71, 65, 0.14)"
+        input_bg = "#EFE9DF"
+        pill_track = "rgba(74, 71, 65, 0.07)"
+        pill_active_bg = "#FDFBF7"
+        card_shadow = "rgba(0, 0, 0, 0.06) 0px 0px 18px 0px"
 
     st.markdown(
         f"""
@@ -262,10 +270,14 @@ def inject_apple_css() -> None:
         :root {{
             --bg: {bg_color};
             --surface: {surface_color};
+            --text-display: {text_display};
             --text-primary: {text_primary};
             --text-secondary: {text_secondary};
             --accent: {accent};
+            --accent-hover: {accent_hover};
             --border: {border_col};
+            --font-serif: "Editorial New", "Cormorant Garamond", "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+            --font-sans: "AkkuratLL", "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
         }}
 
         html {{
@@ -273,17 +285,17 @@ def inject_apple_css() -> None:
         }}
 
         html, body, [class*="css"] {{
-            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Inter", sans-serif !important;
+            font-family: var(--font-sans) !important;
             color: {text_primary};
             -webkit-font-smoothing: antialiased;
         }}
 
         code, pre {{
-            font-family: "JetBrains Mono", "SF Mono", monospace !important;
-            font-size: 0.84rem !important;
+            font-family: "JetBrains Mono", monospace !important;
+            font-size: 0.83rem !important;
         }}
 
-        /* 1. Hide Streamlit Default Chrome (Deploy button, MainMenu, Footer, Decoration line) */
+        /* Hide Streamlit Chrome */
         #MainMenu {{ visibility: hidden !important; }}
         footer {{ visibility: hidden !important; }}
         .stDeployButton, [data-testid="stToolbar"], [data-testid="stDecoration"], [data-testid="stStatusWidget"] {{
@@ -305,40 +317,40 @@ def inject_apple_css() -> None:
             max-width: 1180px !important;
         }}
 
-        /* 5. Glassmorphic Sidebar */
+        /* Warm Sandstone Translucent Sidebar */
         section[data-testid="stSidebar"] {{
             background: {sidebar_bg} !important;
-            backdrop-filter: saturate(180%) blur(20px) !important;
-            -webkit-backdrop-filter: saturate(180%) blur(20px) !important;
+            backdrop-filter: saturate(160%) blur(18px) !important;
+            -webkit-backdrop-filter: saturate(160%) blur(18px) !important;
             border-right: 1px solid {border_col} !important;
         }}
         section[data-testid="stSidebar"] * {{
             color: {text_primary};
         }}
 
-        /* 2. Apple-Style Input Fields, Textareas & Dropdowns with macOS Focus Ring */
+        /* Oura 8px Radius Input Fields & Dropdowns with #2A72DE Focus Ring */
         div[data-baseweb="input"], div[data-baseweb="select"] > div, div[data-baseweb="textarea"] {{
-            border-radius: 12px !important;
+            border-radius: 8px !important;
             background-color: {input_bg} !important;
             border: 1px solid {border_col} !important;
-            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+            transition: all 0.2s ease !important;
         }}
         div[data-baseweb="input"]:focus-within,
         div[data-baseweb="select"] > div:focus-within,
         div[data-baseweb="textarea"]:focus-within {{
             border-color: {accent} !important;
-            box-shadow: 0 0 0 3.5px rgba(0, 113, 227, 0.22) !important;
+            box-shadow: 0 0 0 3px rgba(42, 114, 222, 0.22) !important;
             background-color: {surface_color} !important;
         }}
         div[data-baseweb="input"] input, div[data-baseweb="textarea"] textarea {{
-            color: {text_primary} !important;
+            color: {text_display} !important;
             font-size: 0.92rem !important;
         }}
 
         @keyframes revealUp {{
             from {{
                 opacity: 0;
-                transform: translateY(14px);
+                transform: translateY(12px);
             }}
             to {{
                 opacity: 1;
@@ -346,17 +358,17 @@ def inject_apple_css() -> None:
             }}
         }}
 
-        /* Sticky Glassmorphic Header */
+        /* Sticky Oura Editorial Header */
         .apple-top-nav {{
             position: sticky;
             top: 0;
             z-index: 999;
             background: {nav_bg};
-            backdrop-filter: saturate(180%) blur(20px);
-            -webkit-backdrop-filter: saturate(180%) blur(20px);
+            backdrop-filter: saturate(160%) blur(18px);
+            -webkit-backdrop-filter: saturate(160%) blur(18px);
             border: 1px solid {border_col};
-            border-radius: 14px;
-            padding: 0.65rem 1.15rem;
+            border-radius: 8px;
+            padding: 0.65rem 1.2rem;
             margin-bottom: 1.65rem;
             display: flex;
             align-items: center;
@@ -370,19 +382,19 @@ def inject_apple_css() -> None:
             display: flex;
             align-items: center;
             gap: 0.6rem;
+            font-family: var(--font-serif);
             font-weight: 600;
-            font-size: 0.96rem;
-            letter-spacing: -0.015em;
-            color: {text_primary};
+            font-size: 1.15rem;
+            letter-spacing: -0.01em;
+            color: {text_display};
         }}
 
         .apple-brand-dot {{
             width: 8px;
             height: 8px;
-            border-radius: 50%;
+            border-radius: 9999px;
             background: {accent};
             display: inline-block;
-            box-shadow: 0 0 8px {accent};
         }}
 
         .apple-nav-pills {{
@@ -391,137 +403,145 @@ def inject_apple_css() -> None:
             gap: 0.25rem;
             background: {pill_track};
             padding: 0.22rem;
-            border-radius: 980px;
+            border-radius: 9999px;
         }}
 
         .apple-nav-pill {{
             font-size: 0.78rem;
             font-weight: 500;
-            padding: 0.28rem 0.78rem;
-            border-radius: 980px;
+            padding: 0.28rem 0.82rem;
+            border-radius: 9999px;
             color: {text_secondary};
             transition: all 0.2s ease;
         }}
 
         .apple-nav-pill.active {{
             background: {pill_active_bg};
-            color: {text_primary};
+            color: {text_display};
             font-weight: 600;
-            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
         }}
 
-        /* Hero Section */
+        /* Oura Editorial Hero Section (8px radius, Serif Headline) */
         .apple-hero {{
             background: {surface_color};
             border: 1px solid {border_col};
-            border-radius: 20px;
-            padding: 2.6rem 2.4rem;
+            border-radius: 8px;
+            padding: 2.7rem 2.5rem;
             margin-bottom: 1.65rem;
             box-shadow: {card_shadow};
             animation: revealUp 0.55s cubic-bezier(0.16, 1, 0.3, 1) both;
         }}
 
         .apple-eyebrow {{
-            font-size: 0.76rem;
+            font-size: 0.74rem;
             font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 0.06em;
+            letter-spacing: 0.08em;
             color: {accent};
             margin-bottom: 0.45rem;
         }}
 
         .apple-hero-title {{
-            font-size: 2.4rem;
-            font-weight: 700;
-            letter-spacing: -0.03em;
-            line-height: 1.12;
-            color: {text_primary};
+            font-family: var(--font-serif) !important;
+            font-size: 2.65rem;
+            font-weight: 500;
+            letter-spacing: -0.02em;
+            line-height: 1.1;
+            color: {text_display};
             margin: 0 0 0.65rem 0;
         }}
 
         .apple-hero-subtitle {{
-            font-size: 1.02rem;
+            font-size: 0.98rem;
             font-weight: 400;
-            line-height: 1.55;
-            color: {text_secondary};
-            max-width: 680px;
+            line-height: 1.6;
+            color: {text_primary};
+            max-width: 700px;
             margin: 0;
         }}
 
-        /* Surface Cards */
+        /* Oura 8px Radius Surface Cards */
         .apple-card {{
             background-color: {surface_color};
             border: 1px solid {border_col};
-            border-radius: 16px;
-            padding: 1.45rem 1.55rem;
+            border-radius: 8px;
+            padding: 1.5rem 1.6rem;
             box-shadow: {card_shadow};
-            transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease;
+            transition: transform 0.22s ease, border-color 0.2s ease;
             height: 100%;
             margin-bottom: 1rem;
             animation: revealUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
         }}
 
         .apple-card:hover {{
-            transform: translateY(-3px);
+            transform: translateY(-2px);
             border-color: {accent};
         }}
 
         .apple-card-tag {{
             display: inline-block;
-            font-size: 0.7rem;
+            font-size: 0.68rem;
             font-weight: 600;
-            letter-spacing: 0.05em;
+            letter-spacing: 0.07em;
             text-transform: uppercase;
-            color: {text_secondary};
+            color: {accent};
             margin-bottom: 0.45rem;
         }}
 
         .apple-card h3 {{
-            font-size: 1.1rem;
+            font-family: var(--font-serif) !important;
+            font-size: 1.32rem;
             font-weight: 600;
-            letter-spacing: -0.015em;
-            color: {text_primary};
+            letter-spacing: -0.01em;
+            color: {text_display};
             margin: 0 0 0.45rem 0;
         }}
 
         .apple-card p {{
-            font-size: 0.89rem;
-            line-height: 1.55;
-            color: {text_secondary};
+            font-size: 0.88rem;
+            line-height: 1.58;
+            color: {text_primary};
             margin: 0;
         }}
 
         .apple-section-title {{
-            font-size: 1.4rem;
-            font-weight: 600;
-            letter-spacing: -0.02em;
-            color: {text_primary};
+            font-family: var(--font-serif) !important;
+            font-size: 1.75rem;
+            font-weight: 500;
+            letter-spacing: -0.015em;
+            color: {text_display};
             margin-top: 0.75rem;
             margin-bottom: 0.2rem;
         }}
 
         .apple-section-lead {{
             font-size: 0.92rem;
-            color: {text_secondary};
+            color: {text_primary};
             margin-bottom: 1.2rem;
         }}
 
-        /* Pill Buttons & Page Links */
+        /* Oura 9999px Full-Pill Buttons */
         .stButton > button, .stDownloadButton > button {{
-            border-radius: 980px !important;
+            border-radius: 9999px !important;
             font-weight: 500 !important;
             font-size: 0.86rem !important;
-            padding: 0.45rem 1.15rem !important;
+            padding: 0.45rem 1.2rem !important;
             border: 1px solid {border_col} !important;
             background: {surface_color} !important;
-            color: {text_primary} !important;
-            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+            color: {text_display} !important;
+            transition: all 0.2s ease !important;
         }}
 
         .stButton > button[kind="primary"], .stDownloadButton > button[kind="primary"] {{
             background-color: {accent} !important;
             color: #FFFFFF !important;
             border-color: {accent} !important;
+        }}
+
+        .stButton > button[kind="primary"]:hover, .stDownloadButton > button[kind="primary"]:hover {{
+            background-color: {accent_hover} !important;
+            border-color: {accent_hover} !important;
         }}
 
         .stButton > button:hover, .stDownloadButton > button:hover {{
@@ -531,9 +551,9 @@ def inject_apple_css() -> None:
 
         div[data-testid="stPageLink-NavLink"] {{
             border: 1px solid {border_col};
-            border-radius: 12px;
+            border-radius: 9999px;
             background: {surface_color};
-            padding: 0.38rem 0.75rem;
+            padding: 0.38rem 0.85rem;
             transition: all 0.2s ease;
         }}
 
@@ -541,32 +561,32 @@ def inject_apple_css() -> None:
             border-color: {accent};
         }}
 
-        /* Metric Cards */
+        /* Metric Cards (8px Oura Radius) */
         div[data-testid="stMetric"] {{
             background-color: {surface_color};
             border: 1px solid {border_col};
-            border-radius: 14px;
-            padding: 0.9rem 1.1rem;
+            border-radius: 8px;
+            padding: 0.95rem 1.15rem;
             box-shadow: {card_shadow};
             animation: revealUp 0.55s cubic-bezier(0.16, 1, 0.3, 1) both;
         }}
 
         .apple-badge-pass {{
             display: inline-block;
-            background-color: rgba(48, 209, 88, 0.16);
-            color: {"#30D158" if is_dark else "#116329"};
-            padding: 0.22rem 0.75rem;
-            border-radius: 980px;
+            background-color: rgba(46, 125, 91, 0.14);
+            color: {"#52B788" if is_dark else "#1B5E3A"};
+            padding: 0.22rem 0.8rem;
+            border-radius: 9999px;
             font-weight: 600;
             font-size: 0.8rem;
         }}
 
         .apple-badge-fail {{
             display: inline-block;
-            background-color: rgba(255, 69, 58, 0.16);
-            color: {"#FF453A" if is_dark else "#C92A2A"};
-            padding: 0.22rem 0.75rem;
-            border-radius: 980px;
+            background-color: rgba(192, 57, 43, 0.14);
+            color: {"#E67E73" if is_dark else "#A93226"};
+            padding: 0.22rem 0.8rem;
+            border-radius: 9999px;
             font-weight: 600;
             font-size: 0.8rem;
         }}
@@ -590,8 +610,8 @@ def inject_apple_css() -> None:
             background: {bg_color};
         }}
         ::-webkit-scrollbar-thumb {{
-            background: #6E6E73;
-            border-radius: 980px;
+            background: #A8A5A0;
+            border-radius: 9999px;
         }}
         </style>
         """,
@@ -600,18 +620,18 @@ def inject_apple_css() -> None:
 
 
 def apply_apple_plotly_style(fig: Any, height: Optional[int] = None) -> Any:
-    """Style any Plotly chart with the minimalist Apple Health / Stocks aesthetic."""
+    """Style any Plotly chart with the warm Oura sandstone & editorial minimalist aesthetic."""
     init_session_state()
     is_dark = bool(st.session_state.get("dark_mode", False))
-    text_col = "#F5F5F7" if is_dark else "#1D1D1F"
-    muted_col = "#98989D" if is_dark else "#6E6E73"
-    line_col = "rgba(255, 255, 255, 0.1)" if is_dark else "rgba(0, 0, 0, 0.08)"
+    text_col = "#F7F1E8" if is_dark else "#000000"
+    muted_col = "#A8A5A0" if is_dark else "#4A4741"
+    line_col = "rgba(247, 241, 232, 0.12)" if is_dark else "rgba(74, 71, 65, 0.14)"
 
     layout_kwargs: Dict[str, Any] = dict(
-        font=dict(family="-apple-system, BlinkMacSystemFont, Inter, sans-serif", color=text_col, size=12),
+        font=dict(family="Inter, -apple-system, sans-serif", color=text_col, size=12),
         paper_bgcolor="rgba(0,0,0,0)",
         plot_bgcolor="rgba(0,0,0,0)",
-        title_font=dict(size=14, color=text_col, family="-apple-system, BlinkMacSystemFont, Inter, sans-serif"),
+        title_font=dict(size=15, color=text_col, family="Georgia, serif"),
         xaxis=dict(
             showgrid=False,
             zeroline=False,
@@ -628,11 +648,11 @@ def apply_apple_plotly_style(fig: Any, height: Optional[int] = None) -> Any:
             title_font=dict(color=muted_col, size=12),
         ),
         hoverlabel=dict(
-            bgcolor="#1D1D1F",
+            bgcolor="#1E1D1B",
             font_size=12,
-            font_family="-apple-system, BlinkMacSystemFont, Inter, sans-serif",
-            font_color="#FFFFFF",
-            bordercolor="rgba(255,255,255,0.12)",
+            font_family="Inter, sans-serif",
+            font_color="#F7F1E8",
+            bordercolor="rgba(247, 241, 232, 0.18)",
         ),
         margin=dict(l=24, r=24, t=44, b=24),
     )
@@ -650,9 +670,9 @@ def render_top_nav(active_page: str) -> None:
     with st.sidebar:
         st.markdown("#### Appearance")
         dark_choice = st.toggle(
-            "OLED Dark Mode",
+            "Oura Night Mode",
             value=bool(st.session_state.get("dark_mode", False)),
-            help="Switch between Apple Light Mode (#FBFBFD) and iOS OLED Dark Mode (#000000).",
+            help="Switch between Oura Warm Sandstone (#F7F1E8) and Oura Night Mode (#121110).",
         )
         if dark_choice != st.session_state.get("dark_mode", False):
             st.session_state["dark_mode"] = dark_choice
@@ -1017,7 +1037,7 @@ def generate_pdf_report(
         fontSize=16,
         leading=20,
         alignment=1,  # Center
-        textColor=colors.HexColor("#0071E3"),
+        textColor=colors.HexColor("#2A72DE"),
         spaceBefore=4,
         spaceAfter=12,
     )
@@ -1119,7 +1139,7 @@ def generate_pdf_report(
                     ("FONTSIZE", (0, 0), (-1, -1), 8.5),
                     ("ALIGN", (1, 0), (-1, -1), "CENTER"),
                     ("GRID", (0, 0), (-1, -1), 0.5, colors.HexColor("#D2D2D7")),
-                    ("ROWBACKGROUNDS", (0, 1), (-1, -1), [colors.white, colors.HexColor("#FBFBFD")]),
+                    ("ROWBACKGROUNDS", (0, 1), (-1, -1), [colors.white, colors.HexColor("#F7F1E8")]),
                     ("BOTTOMPADDING", (0, 0), (-1, -1), 6),
                     ("TOPPADDING", (0, 0), (-1, -1), 6),
                 ]
